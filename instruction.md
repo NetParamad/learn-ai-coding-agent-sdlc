@@ -144,7 +144,17 @@ New developers or automated agents can bootstrap their local environment instant
 
 ---
 
-## 8. Mandatory Testing & Quality Gates
+## 8. Living Project Skill Document & Auto-Sync (`skills/farmart-project`)
+
+Comprehensive operational knowledge base for AI coding agents and human developers:
+- **Skill Definition**: [`skills/farmart-project/SKILL.md`](file:///Users/netparamad/Documents/GitHub/learn-ai-coding-agent-sdlc/skills/farmart-project/SKILL.md)
+- **Sync Script**: [`scripts/sync-project-skill.mjs`](file:///Users/netparamad/Documents/GitHub/learn-ai-coding-agent-sdlc/scripts/sync-project-skill.mjs)
+- **Manual Sync**: Run `npm run skill:sync`
+- **Automated Loop**: Scheduled recurring cron fires every 5 minutes (`*/5 * * * *`) to inspect code changes (pages, API routes, components, database rows) and update the living skill document.
+
+---
+
+## 9. Mandatory Testing & Quality Gates
 
 Before completing tasks or committing changes, all gates must pass with exit code `0`:
 

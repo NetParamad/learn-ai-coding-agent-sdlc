@@ -16,6 +16,7 @@
     "test:e2e": "playwright test",
     "test:bruno": "npx @usebruno/cli run bruno --env Local",
     "db:seed": "node scripts/seed-data.mjs",
+    "skill:sync": "node scripts/sync-project-skill.mjs",
     "export:ui": "node scripts/ai-export.js"
   },
   "dependencies": {
