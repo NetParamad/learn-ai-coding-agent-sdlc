@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farmart SQLite Database - Mermaid Diagram</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #fafaf9;
+      --card: #ffffff;
+      --text: #1c1917;
+      --muted: #78716c;
+      --border: #e7e5e4;
+      --amber: #fbbf24;
+      --amber-dark: #b45309;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0a09;
+        --card: #1c1917;
+        --text: #fafaf9;
+        --muted: #a8a29e;
+        --border: #292524;
+        --amber: #f59e0b;
+        --amber-dark: #d97706;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--amber);
+      color: #1c1917;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      min-height: 400px;
+    }
+    pre {
+      background: rgba(0,0,0,0.04);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+    }
+    .btn {
+      background: var(--amber);
+      color: #1c1917;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <span class="badge">SQLite Schema</span>
+        <h1 style="margin-top: 0.25rem;">Farmart Database Entity Relationship Diagram</h1>
+        <p style="font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem;">
+          Live representation of SQLite tables in <code>farmart.db</code>.
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('mermaid-raw').innerText); alert('Mermaid code copied to clipboard!');">
+          Copy Mermaid
+        </button>
+        <a class="btn" href="/" style="background: var(--border); color: var(--text);">
+          Back to Home
+        </a>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem;">Visual ER Diagram</h2>
+      <div class="mermaid">
+erDiagram
+    CATEGORIES {
+        string id PK "Unique Category Identifier (c1, c2...)"
+        string name "Category Display Name"
+        string slug UK "URL slug used as foreign key"
+        string icon "Lucide Icon identifier"
+        integer item_count "Total active catalog items"
+    }
+
+    BRANDS {
+        string id PK "Brand ID (b1, b2...)"
+        string name "Brand Trademark"
+        string promo_text "Promotional headline / offer"
+        string bg_color "Tailwind badge container styling"
+        string image_url "Emblem / Logo asset path"
+    }
+
+    PRODUCTS {
+        string id PK "Product SKU Identifier (p1, p2...)"
+        string title "Product Display Title"
+        string brand "Manufacturer / Producer Brand"
+        real price "Current sale price"
+        real original_price "Original price before discount"
+        string currency "Currency symbol ($)"
+        string image_url "Thumbnail image URI"
+        string category_slug FK "Refers to CATEGORIES.slug"
+        real rating "Average review score (1.0 - 5.0)"
+        integer review_count "Total customer reviews"
+        integer sold_count "Items sold"
+        integer total_stock "Remaining inventory"
+        integer is_top_saver "Boolean flag for Top Saver Today"
+        integer is_best_seller "Boolean flag for Best Seller Tab"
+        integer is_just_landing "Boolean flag for Just Landing Tab"
+        string badge "Special deal ribbon text"
+    }
+
+    BANNERS {
+        string id PK "Banner ID (ban1, ban2...)"
+        string title "Headline text"
+        string subtitle "Promotional copy"
+        string discount_badge "Discount ribbon"
+        string button_text "Call to Action button label"
+        string image_url "Banner graphic URI"
+        string bg_color "Tailwind gradient styling"
+        string type "Placement: hero_main | hero_side"
+    }
+
+    CATEGORIES ||--o{ PRODUCTS : "groups"
+    BRANDS ||--o{ PRODUCTS : "manufactures"
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem;">Raw Mermaid Definition</h2>
+      <pre id="mermaid-raw">
+erDiagram
+    CATEGORIES {
+        string id PK
+        string name
+        string slug UK
+        string icon
+        integer item_count
+    }
+
+    BRANDS {
+        string id PK
+        string name
+        string promo_text
+        string bg_color
+        string image_url
+    }
+
+    PRODUCTS {
+        string id PK
+        string title
+        string brand
+        real price
+        real original_price
+        string currency
+        string image_url
+        string category_slug FK
+        real rating
+        integer review_count
+        integer sold_count
+        integer total_stock
+        integer is_top_saver
+        integer is_best_seller
+        integer is_just_landing
+        string badge
+    }
+
+    BANNERS {
+        string id PK
+        string title
+        string subtitle
+        string discount_badge
+        string button_text
+        string image_url
+        string bg_color
+        string type
+    }
+
+    CATEGORIES ||--o{ PRODUCTS : "groups"
+    BRANDS ||--o{ PRODUCTS : "manufactures"
+      </pre>
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',
+      er: { useMaxWidth: true }
+    });
+  </script>
+</body>
+</html>
